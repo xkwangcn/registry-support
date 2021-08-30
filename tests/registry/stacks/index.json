@@ -1,0 +1,114 @@
+[
+  {
+    "name": "java-maven",
+    "displayName": "Maven Java",
+    "description": "Upstream Maven and OpenJDK 11",
+    "tags": [
+      "Java",
+      "Maven"
+    ],
+    "projectType": "maven",
+    "language": "java",
+    "links": {
+      "self": "/devfiles/java-maven/devfile.yaml"
+    }
+  },
+  {
+    "name": "java-openliberty",
+    "displayName": "Open Liberty",
+    "description": "Open Liberty microservice in Java",
+    "projectType": "docker",
+    "language": "java",
+    "links": {
+      "self": "/devfiles/java-openliberty/devfile.yaml"
+    }
+  },
+  {
+    "name": "java-quarkus",
+    "displayName": "Quarkus Java",
+    "description": "Upstream Quarkus with Java+GraalVM",
+    "tags": [
+      "Java",
+      "Quarkus"
+    ],
+    "projectType": "quarkus",
+    "language": "java",
+    "links": {
+      "self": "/devfiles/java-quarkus/devfile.yaml"
+    }
+  },
+  {
+    "name": "java-springboot",
+    "displayName": "Spring Boot®",
+    "description": "Spring Boot® using Java",
+    "tags": [
+      "Java",
+      "Spring"
+    ],
+    "globalMemoryLimit": "2674Mi",
+    "icon": "https://www.eclipse.org/che/images/logo-eclipseche.svg",
+    "projectType": "spring",
+    "language": "java",
+    "links": {
+      "self": "/devfiles/java-springboot/devfile.yaml"
+    }
+  },
+  {
+    "name": "java-vertx",
+    "displayName": "Vert.x Java",
+    "description": "Upstream Vert.x using Java",
+    "tags": [
+      "Java",
+      "Vert.x"
+    ],
+    "projectType": "vertx",
+    "language": "java",
+    "links": {
+      "self": "/devfiles/java-vertx/devfile.yaml"
+    }
+  },
+  {
+    "name": "nodejs",
+    "displayName": "NodeJS Runtime",
+    "description": "Stack with NodeJS 12",
+    "tags": [
+      "NodeJS",
+      "Express",
+      "ubi8"
+    ],
+    "projectType": "nodejs",
+    "language": "nodejs",
+    "links": {
+      "self": "/devfiles/nodejs/devfile.yaml"
+    }
+  },
+  {
+    "name": "python",
+    "displayName": "Python",
+    "description": "Python Stack with Python 3.7",
+    "tags": [
+      "Python",
+      "pip"
+    ],
+    "projectType": "python",
+    "language": "python",
+    "links": {
+      "self": "/devfiles/python/devfile.yaml"
+    }
+  },
+  {
+    "name": "python-django",
+    "displayName": "Django",
+    "description": "Python3.7 with Django",
+    "tags": [
+      "Python",
+      "pip",
+      "Django"
+    ],
+    "projectType": "django",
+    "language": "python",
+    "links": {
+      "self": "/devfiles/python-django/devfile.yaml"
+    }
+  }
+]
