@@ -44,7 +44,7 @@ objects:
 
 parameters:
 - name: DEVFILE_REGISTRY_HOST
-  value: ""
+  value: devfile-registry.apps.ododev.rhocp.boe
   displayName: Devfile registry hostname
   description: Hostname for the devfile registry service. Defaults to cluster's router.
   required: false
