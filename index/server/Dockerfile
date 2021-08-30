@@ -1,5 +1,5 @@
 # Builder image
-FROM golang:alpine3.11 AS builder
+FROM golang:alpine3.12 AS builder
 WORKDIR /tools
 COPY . .
 RUN CGO_ENABLED=0 go build -mod=vendor -o index-server main.go

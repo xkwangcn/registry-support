@@ -12,7 +12,7 @@ FROM quay.io/openshift-pipeline/golang:1.15-alpine AS builder
 RUN apk add --no-cache git bash curl zip
 
 # Install yq
-RUN curl -sL -O https://github.com/mikefarah/yq/releases/download/v4.9.5/yq_linux_amd64 -o /usr/local/bin/yq && mv ./yq_linux_amd64 /usr/local/bin/yq && chmod +x /usr/local/bin/yq
+RUN curl -sL -O https://github.com/mikefarah/yq/releases/download/v4.9.5/yq_linux_s390x -o /usr/local/bin/yq && mv ./yq_linux_s390x /usr/local/bin/yq && chmod +x /usr/local/bin/yq
 RUN yq
 
 # Copy the registry build tools
