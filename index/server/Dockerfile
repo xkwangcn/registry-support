@@ -27,20 +27,20 @@ RUN mkdir -p /www/data && chmod -R g+rwx /www/data
 WORKDIR /app
 
 # Copy over the registry viewer's resources
-COPY --from=registry-viewer --chown=www-data:root /app/next.config.js ./
-COPY --from=registry-viewer --chown=www-data:root /app/public ./public
-COPY --from=registry-viewer --chown=www-data:root /app/.next ./.next
-COPY --from=registry-viewer /app/node_modules ./node_modules
-COPY --from=registry-viewer /app/package.json ./package.json
-COPY --from=registry-viewer --chown=www-data:root /app/config ./config
+#COPY --from=registry-viewer --chown=www-data:root /app/next.config.js ./
+#COPY --from=registry-viewer --chown=www-data:root /app/public ./public
+#COPY --from=registry-viewer --chown=www-data:root /app/.next ./.next
+#COPY --from=registry-viewer /app/node_modules ./node_modules
+#COPY --from=registry-viewer /app/package.json ./package.json
+#COPY --from=registry-viewer --chown=www-data:root /app/config ./config
 
 # Make sure .next is writable
-RUN chmod -R g+rwx /app/.next
+#RUN chmod -R g+rwx /app/.next
 
 # Run the registry viewer in production
-ENV NODE_ENV production
+#ENV NODE_ENV production
 
-ENV DEVFILE_VIEWER_ROOT /viewer
+#ENV DEVFILE_VIEWER_ROOT /viewer
 ENV DEVFILE_COMMUNITY_HOST false
 
 # Set env vars for the locations of the devfile stacks and index.json
