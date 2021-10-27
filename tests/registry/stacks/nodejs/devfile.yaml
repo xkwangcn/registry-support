@@ -1,18 +1,22 @@
 schemaVersion: 2.0.0
 metadata:
   name: nodejs
-  version: 1.0.0
-  alpha.build-dockerfile: "https://raw.githubusercontent.com/odo-devfiles/registry/master/devfiles/nodejs/build/Dockerfile"
-  alpha.deployment-manifest: "https://raw.githubusercontent.com/odo-devfiles/registry/master/devfiles/nodejs/deploy/deployment-manifest.yaml"
+  version: 1.0.1
+  displayName: Node.js Runtime
+  description: Stack with Node.js 14
+  icon: https://nodejs.org/static/images/logos/nodejs-new-pantone-black.svg
+  tags: ['NodeJS', 'Express', 'ubi8']
+  projectType: 'nodejs'
+  language: 'javascript'
 starterProjects:
   - name: nodejs-starter
     git:
       remotes:
-        origin: "https://github.com/odo-devfiles/nodejs-ex.git"
+        origin: 'https://github.com/odo-devfiles/nodejs-ex.git'
 components:
   - name: runtime
     container:
-      image: registry.access.redhat.com/ubi8/nodejs-12:1-45
+      image: registry.access.redhat.com/ubi8/nodejs-14:latest
       memoryLimit: 1024Mi
       mountSources: true
       sourceMapping: /project
