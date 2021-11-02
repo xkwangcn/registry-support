@@ -1,20 +1,21 @@
 schemaVersion: 2.0.0
 metadata:
   name: java-wildfly-bootable-jar
-  version: 1.0.2
+  version: 1.0.4
   website: https://docs.wildfly.org/bootablejar/
   displayName: WildFly Bootable Jar
   description: Java stack with WildFly in bootable Jar mode, OpenJDK 11 and Maven 3.5
-  tags:  ["RHEL8", "Java", "OpenJDK", "Maven", "WildFly", "Microprofile", "WildFly Bootable"]
-  projectType: "WildFly"
-  language: "java"
+  icon: https://design.jboss.org/wildfly/logo/final/wildfly_logomark.svg
+  tags: ['RHEL8', 'Java', 'OpenJDK', 'Maven', 'WildFly', 'Microprofile', 'WildFly Bootable']
+  projectType: 'WildFly'
+  language: 'java'
 starterProjects:
   - name: microprofile-config
     description: WildFly Eclipse Microprofile Config Quickstart
     git:
       checkoutFrom:
         remote: wildfly-quickstart
-        revision: 23.0.2.Final
+        revision: 25.0.0.Final
       remotes:
         wildfly-quickstart: https://github.com/wildfly/quickstart.git
     subDir: microprofile-config
@@ -23,7 +24,7 @@ starterProjects:
     git:
       checkoutFrom:
         remote: wildfly-quickstart
-        revision: 23.0.2.Final
+        revision: 25.0.0.Final
       remotes:
         wildfly-quickstart: https://github.com/wildfly/quickstart.git
     subDir: microprofile-fault-tolerance
@@ -32,7 +33,7 @@ starterProjects:
     git:
       checkoutFrom:
         remote: wildfly-quickstart
-        revision: 23.0.2.Final
+        revision: 25.0.0.Final
       remotes:
         wildfly-quickstart: https://github.com/wildfly/quickstart.git
     subDir: microprofile-health
@@ -41,7 +42,7 @@ starterProjects:
     git:
       checkoutFrom:
         remote: wildfly-quickstart
-        revision: 23.0.2.Final
+        revision: 25.0.0.Final
       remotes:
         wildfly-quickstart: https://github.com/wildfly/quickstart.git
     subDir: microprofile-jwt
@@ -50,7 +51,7 @@ starterProjects:
     git:
       checkoutFrom:
         remote: wildfly-quickstart
-        revision: 23.0.2.Final
+        revision: 25.0.0.Final
       remotes:
         wildfly-quickstart: https://github.com/wildfly/quickstart.git
     subDir: microprofile-metrics
@@ -59,7 +60,7 @@ starterProjects:
     git:
       checkoutFrom:
         remote: wildfly-quickstart
-        revision: 23.0.2.Final
+        revision: 25.0.0.Final
       remotes:
         wildfly-quickstart: https://github.com/wildfly/quickstart.git
     subDir: microprofile-openapi
@@ -68,7 +69,7 @@ starterProjects:
     git:
       checkoutFrom:
         remote: wildfly-quickstart
-        revision: 23.0.2.Final
+        revision: 25.0.0.Final
       remotes:
         wildfly-quickstart: https://github.com/wildfly/quickstart.git
     subDir: microprofile-opentracing
@@ -77,14 +78,14 @@ starterProjects:
     git:
       checkoutFrom:
         remote: wildfly-quickstart
-        revision: 23.0.2.Final
+        revision: 25.0.0.Final
       remotes:
         wildfly-quickstart: https://github.com/wildfly/quickstart.git
     subDir: microprofile-rest-client
 components:
   - name: jaeger
     container:
-      image: quay.io/jaegertracing/all-in-one:latest
+      image: quay.io/jaegertracing/all-in-one:1.27
       memoryLimit: 128Mi
       endpoints:
         - name: 'tracing-ui'
@@ -101,11 +102,11 @@ components:
         # Enabling Jaeger tracing
         - name: WILDFLY_TRACING_ENABLED
           value: 'true'
-        # Define the Jaeger service name 
+        # Define the Jaeger service name
         - name: JAEGER_SERVICE_NAME
           value: 'microprofile-opentracing'
         # Configure Jaeger traces
-        - name: JAEGER_REPORTER_LOG_SPANS 
+        - name: JAEGER_REPORTER_LOG_SPANS
           value: 'true'
         - name: JAEGER_SAMPLER_TYPE
           value: 'const'
@@ -118,7 +119,7 @@ components:
         - name: JAVA_OPTS
           value: '-Djava.security.egd=file:/dev/urandom'
         - name: MVN_ARGS_APPEND
-          value: '-Pbootable-jar-openshift -Djkube.skip=true -s /home/jboss/.m2/settings.xml -Dmaven.repo.local=/home/jboss/.m2/repository -Dcom.redhat.xpaas.repo.jbossorg -Dversion.wildfly-jar.maven.plugin=3.0.2.Final'
+          value: '-Pbootable-jar-openshift -Djkube.skip=true -s /home/jboss/.m2/settings.xml -Dmaven.repo.local=/home/jboss/.m2/repository -Dcom.redhat.xpaas.repo.jbossorg'
       endpoints:
         - name: 'http'
           targetPort: 8080
