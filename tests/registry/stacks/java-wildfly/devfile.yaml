@@ -1,6 +1,7 @@
 schemaVersion: 2.0.0
 metadata:
   name: java-wildfly
+  description: Upstream WildFly
 components:
   - name: runtime
     container:
