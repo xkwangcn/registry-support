@@ -17,6 +17,12 @@ starterProjects:
         revision: main
       remotes:
         origin: https://github.com/devfile-samples/devfile-stack-nodejs-vue.git
+  - name: nodejs-vue-starter-s390x
+    git:
+      checkoutFrom:
+        revision: s390x
+      remotes:
+        origin: https://github.com/xkwangcn/devfile-stack-nodejs-vue.git
 components:
   - container:
       image: node:lts-slim

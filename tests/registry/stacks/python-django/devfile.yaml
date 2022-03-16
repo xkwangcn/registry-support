@@ -12,19 +12,23 @@ starterProjects:
   - name: django-example
     git:
       remotes:
-        origin: https://github.com/odo-devfiles/python-django-ex
+        origin: https://github.com/devfile-samples/python-django-ex
 components:
   - name: py-web
     container:
-      image: registry.redhat.io/codeready-workspaces/plugin-java8-openj9-rhel8
+      image: registry.redhat.io/codeready-workspaces/plugin-java8-rhel8
       mountSources: true
       endpoints:
         - name: web
           targetPort: 8000
+      env:
+        - name: DEBUG_PORT
+          value: "5858"
 commands:
   - id: pip-install-requirements
     exec:
       commandLine: pip install --user -r requirements.txt
+      workingDir: ${PROJECT_SOURCE}
       group:
         kind: build
         isDefault: true
@@ -32,7 +36,7 @@ commands:
   - id: run-app
     exec:
       commandLine: 'python manage.py runserver 0.0.0.0:8000'
-      workingDir: ${PROJECTS_ROOT}
+      workingDir: ${PROJECT_SOURCE}
       component: py-web
       group:
         kind: run
@@ -40,12 +44,12 @@ commands:
   - id: run-migrations
     exec:
       commandLine: 'python manage.py migrate'
-      workingDir: ${PROJECTS_ROOT}
+      workingDir: ${PROJECT_SOURCE}
       component: py-web
   - id: debug
     exec:
       commandLine: 'pip install --user debugpy && export DEBUG_MODE=True && python -m debugpy --listen 0.0.0.0:${DEBUG_PORT} manage.py runserver 0.0.0.0:8000 --noreload --nothreading'
-      workingDir: ${PROJECTS_ROOT}
+      workingDir: ${PROJECT_SOURCE}
       component: py-web
       group:
         kind: debug

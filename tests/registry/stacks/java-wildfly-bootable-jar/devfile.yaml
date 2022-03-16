@@ -120,6 +120,8 @@ components:
           value: '-Djava.security.egd=file:/dev/urandom'
         - name: MVN_ARGS_APPEND
           value: '-Pbootable-jar-openshift -Djkube.skip=true -s /home/jboss/.m2/settings.xml -Dmaven.repo.local=/home/jboss/.m2/repository -Dcom.redhat.xpaas.repo.jbossorg'
+        - name: DEBUG_PORT
+          value: "5858"
       endpoints:
         - name: 'http'
           targetPort: 8080
@@ -131,7 +133,7 @@ commands:
     exec:
       component: wildfly
       commandLine: mvn ${MVN_ARGS_APPEND} clean package
-      workingDir: $PROJECTS_ROOT
+      workingDir: ${PROJECT_SOURCE}
       group:
         kind: build
         isDefault: false
@@ -139,7 +141,7 @@ commands:
     exec:
       component: wildfly
       commandLine: mvn ${MVN_ARGS_APPEND} org.wildfly.plugins:wildfly-jar-maven-plugin:run
-      workingDir: $PROJECTS_ROOT
+      workingDir: ${PROJECT_SOURCE}
       group:
         kind: run
         isDefault: false
@@ -147,7 +149,7 @@ commands:
     exec:
       component: wildfly
       commandLine: mvn ${MVN_ARGS_APPEND} -Dwildfly.bootable.jvmArguments="-agentlib:jdwp=transport=dt_socket,address=0.0.0.0:${DEBUG_PORT},server=y,suspend=n" org.wildfly.plugins:wildfly-jar-maven-plugin:run
-      workingDir: $PROJECTS_ROOT
+      workingDir: ${PROJECT_SOURCE}
       group:
         kind: debug
         isDefault: false
@@ -155,7 +157,7 @@ commands:
     exec:
       component: wildfly
       commandLine: mvn ${MVN_ARGS_APPEND} -Dmaven.test.skip=true -Ddev package
-      workingDir: $PROJECTS_ROOT
+      workingDir: ${PROJECT_SOURCE}
       group:
         kind: build
         isDefault: false
@@ -163,7 +165,7 @@ commands:
     exec:
       component: wildfly
       commandLine: mvn ${MVN_ARGS_APPEND} org.wildfly.plugins:wildfly-jar-maven-plugin:dev
-      workingDir: $PROJECTS_ROOT
+      workingDir: ${PROJECT_SOURCE}
       hotReloadCapable: true
       group:
         kind: run
@@ -172,7 +174,7 @@ commands:
     exec:
       component: wildfly
       commandLine: mvn ${MVN_ARGS_APPEND} -Dwildfly.bootable.jvmArguments="-agentlib:jdwp=transport=dt_socket,address=0.0.0.0:${DEBUG_PORT},server=y,suspend=n" org.wildfly.plugins:wildfly-jar-maven-plugin:dev
-      workingDir: $PROJECTS_ROOT
+      workingDir: ${PROJECT_SOURCE}
       hotReloadCapable: true
       group:
         kind: debug
@@ -181,7 +183,7 @@ commands:
     exec:
       component: wildfly
       commandLine: echo 'It's watcher mode so we are doing nothing to build.''
-      workingDir: $PROJECTS_ROOT
+      workingDir: ${PROJECT_SOURCE}
       group:
         kind: build
         isDefault: true
@@ -189,7 +191,7 @@ commands:
     exec:
       component: wildfly
       commandLine: mvn ${MVN_ARGS_APPEND} org.wildfly.plugins:wildfly-jar-maven-plugin:dev-watch -e -DskipTests
-      workingDir: $PROJECTS_ROOT
+      workingDir: ${PROJECT_SOURCE}
       hotReloadCapable: true
       group:
         kind: run
@@ -198,7 +200,7 @@ commands:
     exec:
       component: wildfly
       commandLine: mvn ${MVN_ARGS_APPEND} -Dwildfly.bootable.jvmArguments="-agentlib:jdwp=transport=dt_socket,address=0.0.0.0:${DEBUG_PORT},server=y,suspend=n" org.wildfly.plugins:wildfly-jar-maven-plugin:dev-watch -e
-      workingDir: $PROJECTS_ROOT
+      workingDir: ${PROJECT_SOURCE}
       hotReloadCapable: true
       group:
         kind: debug

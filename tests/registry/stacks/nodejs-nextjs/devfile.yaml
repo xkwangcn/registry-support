@@ -17,6 +17,13 @@ starterProjects:
         revision: main
       remotes:
         origin: https://github.com/devfile-samples/devfile-stack-nodejs-nextjs.git
+  - name: nodejs-nextjs-starter-s390x
+    git:
+      checkoutFrom:
+        revision: s390x
+      remotes:
+        origin: https://github.com/xkwangcn/devfile-stack-nodejs-nextjs.git
+
 components:
   - container:
       endpoints:
@@ -29,7 +36,7 @@ components:
     name: runtime
 commands:
   - exec:
-      commandLine: yarn install --frozen-lockfile
+      commandLine: yarn add --dev typescript @types/react && yarn install --frozen-lockfile
       component: runtime
       group:
         isDefault: false

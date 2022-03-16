@@ -94,12 +94,15 @@ components:
           name: '8080-tcp'
           targetPort: 8080
           protocol: http
-      image: registry.redhat.io/codeready-workspaces/plugin-java11-openj9-rhel8
+      image: registry.redhat.io/codeready-workspaces/plugin-java11-rhel8
       memoryLimit: 512Mi
       mountSources: true
       volumeMounts:
         - name: m2
           path: /home/user/.m2
+      env:
+        - name: DEBUG_PORT
+          value: "5858"
   - name: m2
     volume:
       size: 3Gi
@@ -108,6 +111,7 @@ commands:
     exec:
       commandLine: mvn package -Dmaven.test.skip=true
       component: runtime
+      workingDir: ${PROJECT_SOURCE}
       group:
         isDefault: true
         kind: build
@@ -115,6 +119,7 @@ commands:
     exec:
       commandLine: mvn io.reactiverse:vertx-maven-plugin:run
       component: runtime
+      workingDir: ${PROJECT_SOURCE}
       group:
         isDefault: true
         kind: run
@@ -122,6 +127,7 @@ commands:
     exec:
       commandLine: mvn io.reactiverse:vertx-maven-plugin:debug -Ddebug.port=${DEBUG_PORT}
       component: runtime
+      workingDir: ${PROJECT_SOURCE}
       group:
         isDefault: true
         kind: debug
