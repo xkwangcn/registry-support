@@ -32,11 +32,16 @@ starterProjects:
     git:
       remotes:
         origin: 'https://github.com/OpenLiberty/devfile-stack-starters.git'
+variables:
+  # Liberty runtime version. Minimum recommended: 21.0.0.9
+  liberty-version: '22.0.0.1'
+  liberty-plugin-version: '3.5.1'
+  mvn-cmd: 'mvn'
 components:
   - name: dev
     container:
       # In the original upstream of this devfile, the image used is openliberty/devfile-stack:<x.y.z>, which is built from the repository: https://github.com/OpenLiberty/devfile-stack
-      image: icr.io/appcafe/open-liberty-devfile-stack:22.0.0.1
+      image: icr.io/appcafe/open-liberty-devfile-stack:{{liberty-version}}
       memoryLimit: 768Mi
       mountSources: true
       endpoints:
@@ -52,7 +57,7 @@ commands:
   - id: run
     exec:
       component: dev
-      commandLine:  echo "run command "; mvn -DinstallDirectory=/opt/ol/wlp -Ddebug=false -DhotTests=true -DcompileWait=3 io.openliberty.tools:liberty-maven-plugin:3.5.1:dev
+      commandLine:  echo "run command "; {{mvn-cmd}} -DinstallDirectory=/opt/ol/wlp -Ddebug=false -DhotTests=true -DcompileWait=3 io.openliberty.tools:liberty-maven-plugin:{{liberty-plugin-version}}:dev
       workingDir: ${PROJECT_SOURCE}
       hotReloadCapable: true
       group:
@@ -61,7 +66,7 @@ commands:
   - id: run-test-off
     exec:
       component: dev
-      commandLine: echo "run-test-off command "; mvn -DinstallDirectory=/opt/ol/wlp -Ddebug=false io.openliberty.tools:liberty-maven-plugin:3.5.1:dev
+      commandLine: echo "run-test-off command "; {{mvn-cmd}} -DinstallDirectory=/opt/ol/wlp -Ddebug=false io.openliberty.tools:liberty-maven-plugin:{{liberty-plugin-version}}:dev
       workingDir: ${PROJECT_SOURCE}
       hotReloadCapable: true
       group:
@@ -70,7 +75,7 @@ commands:
   - id: debug
     exec:
       component: dev
-      commandLine: echo "debug command "; mvn -DinstallDirectory=/opt/ol/wlp -DdebugPort=${DEBUG_PORT} io.openliberty.tools:liberty-maven-plugin:3.5.1:dev -Dliberty.env.WLP_DEBUG_REMOTE=y
+      commandLine: echo "debug command "; {{mvn-cmd}} -DinstallDirectory=/opt/ol/wlp -DdebugPort=${DEBUG_PORT} io.openliberty.tools:liberty-maven-plugin:{{liberty-plugin-version}}:dev -Dliberty.env.WLP_DEBUG_REMOTE=y
       workingDir: ${PROJECT_SOURCE}
       hotReloadCapable: true
       group:
@@ -80,7 +85,7 @@ commands:
     # The 'test' command requires an already active container. Multi-module apps require compilation prior to test processing.
     exec:
       component: dev
-      commandLine: echo "test command "; mvn compiler:compile failsafe:integration-test failsafe:verify
+      commandLine: echo "test command "; {{mvn-cmd}} compiler:compile failsafe:integration-test failsafe:verify
       workingDir: ${PROJECT_SOURCE}
       hotReloadCapable: true
       group:

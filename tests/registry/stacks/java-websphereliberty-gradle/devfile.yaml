@@ -32,10 +32,14 @@ starterProjects:
     git:
       remotes:
         origin: 'https://github.com/OpenLiberty/devfile-stack-starters.git'
+variables:
+  # Liberty runtime version. Minimum recommended: 21.0.0.9
+  liberty-version: '22.0.0.1'
+  gradle-cmd: 'gradle'
 components:
   - name: dev
     container:
-      image: icr.io/appcafe/websphere-liberty-devfile-stack:22.0.0.1-gradle
+      image: icr.io/appcafe/websphere-liberty-devfile-stack:{{liberty-version}}-gradle
       memoryLimit: 1280Mi
       mountSources: true
       endpoints:
@@ -51,7 +55,7 @@ commands:
   - id: run
     exec:
       component: dev
-      commandLine: echo "gradle run command"; gradle -Dgradle.user.home=/.gradle libertyDev -Pliberty.runtime.version=22.0.0.1 -Pliberty.runtime.name=wlp-javaee8 -Pliberty.runtime.group=com.ibm.websphere.appserver.runtime --libertyDebug=false --hotTests --compileWait=3
+      commandLine: echo "gradle run command"; {{gradle-cmd}} -Dgradle.user.home=/.gradle libertyDev -Pliberty.runtime.version={{liberty-version}} -Pliberty.runtime.name=wlp-javaee8 -Pliberty.runtime.group=com.ibm.websphere.appserver.runtime --libertyDebug=false --hotTests --compileWait=3
       workingDir: ${PROJECT_SOURCE}
       hotReloadCapable: true
       group:
@@ -60,7 +64,7 @@ commands:
   - id: run-test-off
     exec:
       component: dev
-      commandLine: echo "gradle run-tests-off command "; gradle -Dgradle.user.home=/.gradle libertyDev -Pliberty.runtime.version=22.0.0.1 -Pliberty.runtime.name=wlp-javaee8 -Pliberty.runtime.group=com.ibm.websphere.appserver.runtime --libertyDebug=false
+      commandLine: echo "gradle run-tests-off command "; {{gradle-cmd}} -Dgradle.user.home=/.gradle libertyDev -Pliberty.runtime.version={{liberty-version}} -Pliberty.runtime.name=wlp-javaee8 -Pliberty.runtime.group=com.ibm.websphere.appserver.runtime --libertyDebug=false
       workingDir: ${PROJECT_SOURCE}
       hotReloadCapable: true
       group:
@@ -69,7 +73,7 @@ commands:
   - id: debug
     exec:
       component: dev
-      commandLine: echo "gradle debug command "; gradle -Dgradle.user.home=/.gradle libertyDev -Pliberty.runtime.version=22.0.0.1 -Pliberty.runtime.name=wlp-javaee8 -Pliberty.runtime.group=com.ibm.websphere.appserver.runtime --libertyDebugPort=${DEBUG_PORT} -Pliberty.server.env.WLP_DEBUG_REMOTE=y
+      commandLine: echo "gradle debug command "; {{gradle-cmd}} -Dgradle.user.home=/.gradle libertyDev -Pliberty.runtime.version={{liberty-version}} -Pliberty.runtime.name=wlp-javaee8 -Pliberty.runtime.group=com.ibm.websphere.appserver.runtime --libertyDebugPort=${DEBUG_PORT} -Pliberty.server.env.WLP_DEBUG_REMOTE=y
       workingDir: ${PROJECT_SOURCE}
       hotReloadCapable: true
       group:
@@ -78,7 +82,7 @@ commands:
   - id: test
     exec:
       component: dev
-      commandLine: echo "gradle test command "; gradle -Dgradle.user.home=/.gradle test -Pliberty.runtime.version=22.0.0.1 -Pliberty.runtime.name=wlp-javaee8 -Pliberty.runtime.group=com.ibm.websphere.appserver.runtime
+      commandLine: echo "gradle test command "; {{gradle-cmd}} -Dgradle.user.home=/.gradle test -Pliberty.runtime.version={{liberty-version}} -Pliberty.runtime.name=wlp-javaee8 -Pliberty.runtime.group=com.ibm.websphere.appserver.runtime
       workingDir: ${PROJECT_SOURCE}
       hotReloadCapable: true
       group:
