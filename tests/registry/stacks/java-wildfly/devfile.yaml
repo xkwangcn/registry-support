@@ -1,7 +1,20 @@
 schemaVersion: 2.0.0
 metadata:
   name: java-wildfly
+  website: https://wildfly.org
+  displayName: WildFly Java
   description: Upstream WildFly
+  icon: https://design.jboss.org/wildfly/logo/final/wildfly_logomark.svg
+  tags: ['Java', 'WildFly']
+  projectType: 'wildfly'
+  language: 'java'
+starterProjects:
+  - name: quickstart
+    git:
+      checkoutFrom:
+        revision: main
+      remotes:
+        origin: 'https://github.com/wildfly/quickstart.git'
 components:
   - name: runtime
     container:
@@ -12,7 +25,6 @@ components:
           targetPort: 8080
           exposure: public
       mountSources: true
-
 commands:
   - id: run
     exec:
